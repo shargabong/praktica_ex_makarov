@@ -8,8 +8,10 @@ class UserRepository:
         self.db = db
 
     def get_by_login(self, login: str):
-        """Поиск пользователя по email или username."""
-        return self.db.query(User).filter(or_(User.email == login, User.username == login)).first()
+        """Поиск пользователя по email или username"""
+        return self.db.query(User).filter(
+            or_(User.email == login, User.username == login)
+        ).first()
 
     def get_by_id(self, user_id: int):
         return self.db.query(User).filter(User.id == user_id).first()
