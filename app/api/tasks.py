@@ -15,6 +15,10 @@ def create(data: TaskCreate, db: Session = Depends(get_db), user=Depends(get_cur
 def list_tasks(db: Session = Depends(get_db), user=Depends(get_current_user)):
     return TaskService(db).list_tasks(user.id)
 
+@router.get("/{task_id}", response_model=TaskOut)
+def get_task(task_id: int, db: Session = Depends(get_db), user=Depends(get_current_user)):
+    return TaskService(db).get_task_for_user(task_id, user)
+
 @router.patch("/{task_id}", response_model=TaskOut)
 def update(task_id: int, data: TaskUpdate, db: Session = Depends(get_db), user=Depends(get_current_user)):
     return TaskService(db).update_task(task_id, data, user)
